@@ -86,104 +86,59 @@ CREATE TABLE Payment (
 -- Assignments qus for SQL Queries.
 --Part 1: Questions 1–8 (Basic SELECT and WHERE)
 
--- Question 1 : Create the Department table.
+-- Q1. Display all information stored in the Student table.
 -- =====================================================
 
-CREATE TABLE Department (
-    department_id NUMBER(3) PRIMARY KEY,
-    department_name VARCHAR2(50) NOT NULL,
-    building VARCHAR2(20)
-);
+SELECT *
+FROM Student;
 
--- Question 2 : Create the Student table.
+-- Q2. Display only the student names, cities, and ages.
 -- =====================================================
 
-CREATE TABLE Student (
-    student_id NUMBER(3) PRIMARY KEY,
-    student_name VARCHAR2(50) NOT NULL,
-    department_id NUMBER(3),
-    city VARCHAR2(30),
-    age NUMBER(2),
-    admission_year NUMBER(4),
-    CONSTRAINT student_fk
-        FOREIGN KEY (department_id)
-        REFERENCES Department(department_id)
-);
+SELECT student_name,
+       city,
+       age
+FROM Student;
 
--- Question 3 : Create the Course table.
+-- Q3. Find all students who live in Dhaka.
 -- =====================================================
 
-CREATE TABLE Course (
-    course_id NUMBER(3) PRIMARY KEY,
-    course_name VARCHAR2(50) NOT NULL,
-    credit NUMBER(2),
-    department_id NUMBER(3),
-    CONSTRAINT course_fk
-        FOREIGN KEY (department_id)
-        REFERENCES Department(department_id)
-);
+SELECT *
+FROM Student
+WHERE city = 'Dhaka';
 
--- Question 4 : Create the Enrollment table.
+-- Q4. Find all students whose age is more than 21.
 -- =====================================================
 
-CREATE TABLE Enrollment (
-    enrollment_id NUMBER(3) PRIMARY KEY,
-    student_id NUMBER(3),
-    course_id NUMBER(3),
-    semester VARCHAR2(20),
-    marks NUMBER(3),
-    CONSTRAINT enrollment_student_fk
-        FOREIGN KEY (student_id)
-        REFERENCES Student(student_id),
-    CONSTRAINT enrollment_course_fk
-        FOREIGN KEY (course_id)
-        REFERENCES Course(course_id)
-);
+SELECT *
+FROM Student
+WHERE age > 21;
 
--- Question 5 : Create the Teacher table.
+-- Q5. Find all students who were admitted in 2023 or later.
 -- =====================================================
 
-CREATE TABLE Teacher (
-    teacher_id NUMBER(3) PRIMARY KEY,
-    teacher_name VARCHAR2(50) NOT NULL,
-    department_id NUMBER(3),
-    city VARCHAR2(30),
-    salary NUMBER(8,2),
-    CONSTRAINT teacher_fk
-        FOREIGN KEY (department_id)
-        REFERENCES Department(department_id)
-);
+SELECT *
+FROM Student
+WHERE admission_year >= 2023;
 
--- Question 6 : Create the Payment table.
+-- Q6. Find all courses that carry more than 3 credits.
 -- =====================================================
 
-CREATE TABLE Payment (
-    payment_id NUMBER(3) PRIMARY KEY,
-    student_id NUMBER(3),
-    amount NUMBER(8,2),
-    payment_date DATE
-);
+SELECT *
+FROM Course
+WHERE credit > 3;
 
-
--- Question 7 : Create the Library table.
+-- Q7. Find all enrollment records where marks are greater than 80.
 -- =====================================================
 
-CREATE TABLE Library (
-    library_id NUMBER(3) PRIMARY KEY,
-    library_name VARCHAR2(50) NOT NULL,
-    location VARCHAR2(30)
-);
+SELECT *
+FROM Enrollment
+WHERE marks > 80;
 
--- Question 8 : Create the Book table.
+-- Q8. Find all students who live in either Dhaka or Sylhet.
 -- =====================================================
 
-CREATE TABLE Book (
-    book_id NUMBER(4) PRIMARY KEY,
-    book_title VARCHAR2(100) NOT NULL,
-    author_name VARCHAR2(50),
-    library_id NUMBER(3),
-    CONSTRAINT book_library_fk
-        FOREIGN KEY (library_id)
-        REFERENCES Library(library_id)
-);
+SELECT *
+FROM Student
+WHERE city IN ('Dhaka', 'Sylhet');
 
