@@ -238,3 +238,161 @@ SELECT t.teacher_name,
 FROM Teacher t
 LEFT JOIN Department d
 ON t.department_id = d.department_id;
+
+
+-- Q17. Display every teacher and every department
+--      in one result, so that unmatched teachers
+--      and unmatched departments are also visible.
+-- =====================================================
+
+SELECT t.teacher_name,
+       d.department_name
+FROM Teacher t
+FULL OUTER JOIN Department d
+ON t.department_id = d.department_id;
+
+
+-- Q18. Display every course with its enrollment
+--      information, including courses that have
+--      no enrollment record.
+-- =====================================================
+
+SELECT c.course_name,
+       e.enrollment_id,
+       e.student_id,
+       e.semester,
+       e.marks
+FROM Course c
+LEFT JOIN Enrollment e
+ON c.course_id = e.course_id;
+
+
+-- Q19. Find the total number of students.
+-- =====================================================
+
+SELECT COUNT(*) AS Total_Students
+FROM Student;
+
+
+-- Q20. Find the average age of all students.
+-- =====================================================
+
+SELECT AVG(age) AS Average_Age
+FROM Student;
+
+
+-- Q21. Find the highest marks recorded
+--      in the Enrollment table.
+-- =====================================================
+
+SELECT MAX(marks) AS Highest_Marks
+FROM Enrollment;
+
+
+-- Q22. Find the lowest salary recorded
+--      in the Teacher table.
+-- =====================================================
+
+SELECT MIN(salary) AS Lowest_Salary
+FROM Teacher;
+
+
+-- Q23. Find the total amount collected
+--      in the Payment table.
+-- =====================================================
+
+SELECT SUM(amount) AS Total_Amount
+FROM Payment;
+
+
+-- Q24. Find how many different cities
+--      are listed in the Student table.
+-- =====================================================
+
+SELECT COUNT(DISTINCT city) AS Total_Cities
+FROM Student;
+
+
+-- Q25. Prepare one combined city list from
+--      Student and Teacher where repeated
+--      city names appear only once.
+-- =====================================================
+
+SELECT city
+FROM Student
+
+UNION
+
+SELECT city
+FROM Teacher;
+
+
+-- Q26. Prepare one combined city list from
+--      Student and Teacher where repeated
+--      city names are also shown.
+-- =====================================================
+
+SELECT city
+FROM Student
+
+UNION ALL
+
+SELECT city
+FROM Teacher;
+
+
+-- Q27. Find the city names that appear in both
+--      Student and Teacher city lists.
+-- =====================================================
+
+SELECT city
+FROM Student
+
+INTERSECT
+
+SELECT city
+FROM Teacher;
+
+
+-- Q28. Find the city names that appear in the
+--      Student table but do not appear in
+--      the Teacher table.
+-- =====================================================
+
+SELECT city
+FROM Student
+
+MINUS
+
+SELECT city
+FROM Teacher;
+
+-- Q29. Add a new column named email to the
+--      Student table that can store email addresses.
+-- =====================================================
+
+ALTER TABLE Student
+ADD email VARCHAR2(100);
+
+
+-- Q30. Change the Student table so that the
+--      city column can store longer city names.
+-- =====================================================
+
+ALTER TABLE Student
+MODIFY city VARCHAR2(50);
+
+
+-- Q31. Change the column name student_name
+--      in the Student table to full_name.
+-- =====================================================
+
+ALTER TABLE Student
+RENAME COLUMN student_name TO full_name;
+
+
+-- Q32. Change the table name Teacher to Faculty.
+-- =====================================================
+
+ALTER TABLE Teacher
+RENAME TO Faculty;
