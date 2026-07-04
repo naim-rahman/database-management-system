@@ -142,3 +142,99 @@ SELECT *
 FROM Student
 WHERE city IN ('Dhaka', 'Sylhet');
 
+
+-- Q9. Display the names of students with the names of
+--     their departments.
+-- =====================================================
+
+SELECT s.student_name,
+       d.department_name
+FROM Student s
+INNER JOIN Department d
+ON s.department_id = d.department_id;
+
+
+-- Q10. Display the names of teachers with the names of
+--      their departments.
+-- =====================================================
+
+SELECT t.teacher_name,
+       d.department_name
+FROM Teacher t
+INNER JOIN Department d
+ON t.department_id = d.department_id;
+
+
+-- Q11. Display every course name with the name of the
+--      department that offers it.
+-- =====================================================
+
+SELECT c.course_name,
+       d.department_name
+FROM Course c
+INNER JOIN Department d
+ON c.department_id = d.department_id;
+
+
+-- Q12. Display student names with the course IDs they
+--      are enrolled in.
+-- =====================================================
+
+SELECT s.student_name,
+       e.course_id
+FROM Student s
+INNER JOIN Enrollment e
+ON s.student_id = e.student_id;
+
+
+-- Q13. Display student names, course names,
+--      semesters, and marks together.
+-- =====================================================
+
+SELECT s.student_name,
+       c.course_name,
+       e.semester,
+       e.marks
+FROM Student s
+INNER JOIN Enrollment e
+ON s.student_id = e.student_id
+INNER JOIN Course c
+ON e.course_id = c.course_id;
+
+
+-- Q14. Display each student name with any payment
+--      amount and payment date available for that
+--      student. Students with no payment record
+--      should still appear.
+-- =====================================================
+
+SELECT s.student_name,
+       p.amount,
+       p.payment_date
+FROM Student s
+LEFT JOIN Payment p
+ON s.student_id = p.student_id;
+
+
+-- Q15. Display every department with its teacher names,
+--      including departments that currently have
+--      no teacher listed.
+-- =====================================================
+
+SELECT d.department_name,
+       t.teacher_name
+FROM Department d
+LEFT JOIN Teacher t
+ON d.department_id = t.department_id;
+
+
+-- Q16. Display every teacher with the related
+--      department name, including teachers who are
+--      not assigned to any department.
+-- =====================================================
+
+SELECT t.teacher_name,
+       d.department_name
+FROM Teacher t
+LEFT JOIN Department d
+ON t.department_id = d.department_id;
